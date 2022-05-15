@@ -1,101 +1,58 @@
-import { Progress } from "@chakra-ui/react";
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import { atom, useAtom } from "jotai";
+import { useEffect, useMemo } from "react";
 
-import { Layout } from "@components";
-import { atom, useAtom, useAtomValue } from "jotai";
+import { Layout, OnboardingProgress } from "@components";
 
-import styled from "@emotion/styled";
+import {
+  OnboardingPageActivate,
+  OnboardingPageChallengeEmail,
+  OnboardingPageComplete,
+  OnboardingPageNonprofit,
+  OnboardingPageSetup,
+} from "./OnboardingPage";
 
-const Container = styled(motion.div)`
-  border: 1px solid blue;
-  margin: 2rem 0;
-  padding: 3rem;
+// Root state to be shared between child pages/views...
+export const progressAtom = atom(0);
 
-  & h1 {
-    border: 1px solid green;
-  }
-`;
-
-const progressAtom = atom(0);
-const stepAtom = atom(0);
-
-const rootVariants: Variants = {
-  out: { opacity: 0 },
-  in: {
-    opacity: 1,
-    transition: {
-      delayChildren: 0.25,
-      staggerChildren: 0.125,
-      ease: "easeInOut",
-    },
-  },
-};
-
-const childVariants: Variants = {
-  out: { opacity: 0, y: 20 },
-  in: { opacity: 1, y: 0 },
-};
-
-const Uno = () => (
-  <Container variants={rootVariants} initial="out" animate="in" exit="out">
-    <motion.h1 variants={childVariants}>
-      We're starting to set up your account...
-    </motion.h1>
-  </Container>
-);
-
-const Dos = () => (
-  <Container variants={rootVariants} initial="out" animate="in" exit="out">
-    <motion.h1 variants={childVariants}>
-      Building your challenge email...
-    </motion.h1>
-  </Container>
-);
-
-const Tres = () => (
-  <Container variants={rootVariants} initial="out" animate="in" exit="out">
-    <motion.h1 variants={childVariants}>Setting up your nonprofit...</motion.h1>
-  </Container>
-);
-
-const Cuatro = () => (
-  <Container variants={rootVariants} initial="out" animate="in" exit="out">
-    <motion.h1 variants={childVariants}>
-      Waiting for you to activate...
-    </motion.h1>
-  </Container>
-);
-
-const renderContent = () => {
-  const progress = useAtomValue(progressAtom);
-  // if (!progress) return null;
-
-  if (progress <= 24) return <Uno key="uno" />;
-  if (progress >= 25 && progress <= 49) return <Dos key="dos" />;
-  if (progress >= 50 && progress <= 74) return <Tres key="tres" />;
-  if (progress >= 75 && progress <= 100) return <Cuatro key="cuatro" />;
-};
+export type OnboardingPage =
+  | "setup"
+  | "challenge-email"
+  | "nonprofit"
+  | "activate"
+  | "complete";
 
 export const Onboarding = () => {
   const [progress, setProgress] = useAtom(progressAtom);
-  const step = useAtomValue(stepAtom);
-  const content = renderContent();
+
+  const page = useMemo(() => {
+    let page: OnboardingPage | null = null;
+
+    if (progress >= 1 && progress <= 24) page = "setup";
+    if (progress >= 25 && progress <= 49) page = "challenge-email";
+    if (progress >= 50 && progress <= 74) page = "nonprofit";
+    if (progress >= 75 && progress < 100) page = "activate";
+    if (progress === 100) page = "complete";
+
+    return page;
+  }, [progress]);
+
+  useEffect(() => {
+    // Delay rendering by 1 second to allow for animating the progress bar in...
+    setTimeout(() => setProgress(1), 1000);
+  }, []);
 
   return (
     <Layout>
-      <Progress value={progress} borderRadius={8} />
-      <h4>Progress: {progress}%</h4>
-      <input
-        type="number"
-        value={progress}
-        min={0}
-        max={100}
-        onChange={(e) => setProgress(parseInt(e.target.value, 10))}
-      />
+      <OnboardingProgress />
 
-      <AnimatePresence exitBeforeEnter>{content}</AnimatePresence>
-
-      <pre children={JSON.stringify({ step, progress }, null, 2)} />
+      <AnimatePresence exitBeforeEnter>
+        {page === "setup" && <OnboardingPageSetup />}
+        {page === "challenge-email" && <OnboardingPageChallengeEmail />}
+        {page === "nonprofit" && <OnboardingPageNonprofit />}
+        {page === "activate" && <OnboardingPageActivate />}
+        {page === "complete" && <OnboardingPageComplete />}
+      </AnimatePresence>
     </Layout>
   );
 };

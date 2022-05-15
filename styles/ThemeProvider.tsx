@@ -13,7 +13,7 @@ interface ThemeProviderProps {
 export const ThemeProvider: FC<ThemeProviderProps> = ({
   children,
   theme = {},
-  resetCSS = false,
+  resetCSS = true,
 }) => {
   const extendedTheme = extendTheme(defaultTheme, theme);
 

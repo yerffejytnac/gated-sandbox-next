@@ -1,11 +1,3 @@
-import { Layout } from "@components";
+import { Onboarding as OnboardingPage } from "@components";
 
-const IndexPage = () => {
-  return (
-    <Layout>
-      <h1>Application</h1>
-    </Layout>
-  );
-};
-
-export default IndexPage;
+export default OnboardingPage;
