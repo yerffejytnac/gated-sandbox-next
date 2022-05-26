@@ -8,8 +8,8 @@ import {
   OnboardingPageActivate,
   OnboardingPageChallengeEmail,
   OnboardingPageComplete,
-  OnboardingPageNonprofit,
   OnboardingPageSetup,
+  OnboardingPageNonprofit,
 } from "./OnboardingPage";
 
 // Root state to be shared between child pages/views...
