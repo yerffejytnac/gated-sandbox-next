@@ -2,14 +2,14 @@ import styled from "@emotion/styled";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { useSetAtom } from "jotai";
 
-import { AllowedSender, itemVariants } from "./AllowedSender";
+import { AllowedSender } from "./AllowedSender";
 
 import { progressAtom } from "../Onboarding";
 
 const Root = styled(motion.div)`
   position: relative;
   width: 100%;
-  height: 260px;
+  height: 220px;
   background-color: #f7f7f7;
   overflow: hidden;
 `;
@@ -19,8 +19,7 @@ const Container = styled.div`
 `;
 
 const List = styled(motion.div)`
-  border: 1px solid blue;
-  padding: 1rem 2rem;
+  padding: 0 2rem;
 `;
 
 const listVariants: Variants = {
@@ -33,9 +32,10 @@ const listVariants: Variants = {
     y: ["25%", "-100%"],
     transition: {
       opacity: { duration: 0.2 },
-      y: { duration: 8, type: "keyframes", ease: "linear" },
-      // delayChildren: 0.5,
-      // staggerChildren: 0.5,
+      y: { duration: 6, type: "keyframes", ease: "linear" },
+      delayChildren: 0.25,
+      staggerChildren: 0.25,
+      staggerDirection: 1,
     },
   },
 };
@@ -98,13 +98,7 @@ export const OnboardingAnimationAllowedSenders = () => {
         >
           <AnimatePresence>
             {MOCK.map((i, idx) => (
-              <AllowedSender
-                {...i}
-                key={`sender-${idx}`}
-                custom={idx}
-                variants={itemVariants}
-                animate="visible"
-              />
+              <AllowedSender {...i} key={`sender-${idx}`} custom={idx} />
             ))}
           </AnimatePresence>
         </List>

@@ -13,7 +13,7 @@ export const OnboardingPageNonprofit = () => {
   return (
     <Root variants={rootVariants} initial="out" animate="in" exit="out">
       <motion.h3 variants={containerVariantsHeading}>
-        Setting up your nonprofit&hellip;
+        Choosing a nonprofit you support&hellip;
       </motion.h3>
 
       <Container variants={containerVariantsContent}>

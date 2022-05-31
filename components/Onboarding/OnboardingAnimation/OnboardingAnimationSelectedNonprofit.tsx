@@ -12,7 +12,7 @@ export const OnboardingAnimationSelectedNonprofit = () => {
   const [animationData, setAnimationData] = useAtom(animationDataAtom);
 
   useEffect(() => {
-    const data = generateSelectedNonprofit("Charity with Lonnnnnnnng Name");
+    const data = generateSelectedNonprofit("Doctors Without Borders");
     if (data) setAnimationData(data);
 
     if (animationData) setProgress(62.5);

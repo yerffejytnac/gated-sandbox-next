@@ -17,7 +17,7 @@ export const OnboardingPageChallengeEmail = () => {
   return (
     <Root variants={rootVariants} initial="out" animate="in" exit="out">
       <motion.h3 variants={containerVariantsHeading}>
-        Building your challenge email&hellip;
+        Building your automated reply to Gated messages&hellip;
       </motion.h3>
 
       <Container variants={containerVariantsContent}>

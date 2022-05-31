@@ -26,7 +26,7 @@ export const OnboardingPageSetup = () => {
       {showA && (
         <Root variants={rootVariants} initial="out" animate="in" exit="out">
           <motion.h3 variants={containerVariantsHeading}>
-            Setting up your account&hellip;
+            We’ve connected to your email account&hellip;
           </motion.h3>
 
           <Container variants={containerVariantsHeading}>
@@ -37,7 +37,7 @@ export const OnboardingPageSetup = () => {
       {showB && (
         <Root variants={rootVariants} initial="out" animate="in" exit="out">
           <motion.h3 variants={containerVariantsHeading}>
-            Creating your list of allowed senders&hellip;
+            Taking a look to see whose messages should never be Gated&hellip;
           </motion.h3>
 
           <Container variants={containerVariantsHeading}>
@@ -48,13 +48,14 @@ export const OnboardingPageSetup = () => {
       {showC && (
         <Root variants={rootVariants} initial="out" animate="in" exit="out">
           <motion.h3 variants={containerVariantsHeading}>
-            Showing how you can use Gated easily in your inbox&hellip;
+            Creating a folder where Gated messages go&hellip;
           </motion.h3>
 
           <Container
             variants={containerVariantsContent}
             transition={{ type: "spring", bounce: 0.25, duration: 0.75 }}
           >
+            <h3>TODO: Swap with GatedSidebar Animation</h3>
             <OnboardingAnimationInboxTraining />
           </Container>
         </Root>
