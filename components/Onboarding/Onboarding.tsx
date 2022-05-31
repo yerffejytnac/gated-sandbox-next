@@ -13,7 +13,7 @@ import {
 } from "./OnboardingPage";
 
 // Root state to be shared between child pages/views...
-export const progressAtom = atom(0);
+export const progressAtom = atom(9);
 
 export type OnboardingPage =
   | "setup"
@@ -39,7 +39,7 @@ export const Onboarding = () => {
 
   useEffect(() => {
     // Delay rendering by 1 second to allow for animating the progress bar in...
-    setTimeout(() => setProgress(1), 1000);
+    // setTimeout(() => setProgress(1), 1000);
   }, []);
 
   return (
