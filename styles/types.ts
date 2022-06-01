@@ -1,5 +1,6 @@
-import { SystemStyleObject } from "@chakra-ui/react";
+import { SystemStyleObject, ThemeConfig } from "@chakra-ui/react";
 import { ComponentStyleConfig } from "@chakra-ui/theme";
+import { Breakpoints } from "./breakpoints";
 
 import { Colors } from "./colors";
 import {
@@ -10,6 +11,8 @@ import {
 } from "./typography";
 
 export interface Theme {
+  config?: ThemeConfig;
+  breakpoints: Breakpoints;
   colors: Colors;
   components: {
     [key: string]: ComponentStyleConfig;

@@ -1,3 +1,4 @@
+import { ColorMode, useBreakpointValue, useColorMode } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { theme } from "@styles";
 import { HTMLMotionProps, motion, MotionProps, Variants } from "framer-motion";
@@ -10,7 +11,7 @@ const rootVariants: Variants = {
 
 const Root = styled(motion.div)`
   display: grid;
-  grid-template-columns: repeat(4, max-content);
+  grid-template-columns: repeat(2, max-content) 1fr;
   gap: 8px;
   align-items: center;
   font-size: ${({ theme }) => theme.fontSizes.sm};
@@ -20,19 +21,6 @@ const Root = styled(motion.div)`
   & svg {
     width: 24px;
     height: 24px;
-  }
-
-  & div {
-    border: 1px solid ${({ theme }) => theme.colors.blue[500]};
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    color: ${({ theme }) => theme.colors.blue[800]};
-    font-weight: ${({ theme }) => theme.fontWeights.semibold};
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 `;
 
@@ -48,9 +36,64 @@ const iconVariants: Variants = {
     },
   }),
   hidden: {
-    color: theme.colors.gray[300],
+    color: theme.colors.gray[600],
     scale: 0,
   },
+};
+
+const avatarVariants: Variants = {
+  visible: (i) => ({
+    color: theme.colors.blue[800],
+    borderColor: theme.colors.blue[500],
+    transition: {
+      delay: i * 0.5,
+      scale: {
+        type: "spring",
+      },
+    },
+  }),
+  hidden: {
+    color: theme.colors.gray[600],
+    borderColor: theme.colors.gray[300],
+  },
+};
+
+const AvatarRoot = styled(motion.div)`
+  border: 1px solid transparent;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: inherit;
+  font-weight: ${({ theme }) => theme.fontWeights.semibold};
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+interface AvatarProps extends MotionProps {
+  displayName: string;
+  colorMode: ColorMode;
+}
+const Avatar = ({ displayName, custom }: AvatarProps) => {
+  if (!displayName) return null;
+
+  const nameParts = displayName.split(" ");
+  const initials =
+    nameParts.length >= 2
+      ? nameParts.map((part: string) => part[0]).join("")
+      : nameParts[0];
+
+  return (
+    <AvatarRoot
+      variants={avatarVariants}
+      custom={custom}
+      initial="hidden"
+      animate="visible"
+    >
+      {initials}
+    </AvatarRoot>
+  );
 };
 
 const CheckIcon = ({ custom }: MotionProps) => (
@@ -67,6 +110,34 @@ const CheckIcon = ({ custom }: MotionProps) => (
   </motion.svg>
 );
 
+const Text = styled.div<{ colorMode: ColorMode; viewport?: string }>`
+  display: grid;
+  width: 100%;
+  gap: 4px;
+  margin-left: 8px;
+
+  & strong {
+    color: ${({ theme }) => theme.colors.blue[800]};
+  }
+
+  & span {
+    color: ${({ theme }) => theme.colors.gray[500]};
+  }
+
+  ${({ viewport }) =>
+    viewport === "mobile" &&
+    `
+      grid-template-rows: repeat(2, auto);
+    `};
+
+  ${({ viewport }) =>
+    viewport === "desktop" &&
+    `
+      grid-template-columns: repeat(2, max-content);
+      gap: 8px;
+    `};
+`;
+
 export interface AllowedSender {
   displayName: string;
   emailAddress: string;
@@ -82,16 +153,21 @@ export const AllowedSender = ({
   emailAddress,
   ...rest
 }: AllowedSenderProps) => {
-  const initials = displayName
-    .split(" ")
-    .map((part: string) => part[0])
-    .join("");
+  const viewport = useBreakpointValue({
+    base: "mobile",
+    md: "tablet",
+    xl: "desktop",
+  });
+  const { colorMode } = useColorMode();
+
   return (
     <Root {...rest} variants={rootVariants}>
       <CheckIcon custom={custom} />
-      <div>{initials}</div>
-      <strong>{displayName}</strong>
-      <span>{emailAddress}</span>
+      <Avatar custom={custom} displayName={displayName} colorMode={colorMode} />
+      <Text viewport={viewport} colorMode={colorMode}>
+        <strong>{displayName}</strong>
+        <span>{emailAddress}</span>
+      </Text>
     </Root>
   );
 };
