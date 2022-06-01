@@ -19,7 +19,7 @@ export const OnboardingPageActivate = () => {
   return (
     <Root variants={rootVariants} initial="out" animate="in" exit="out">
       <motion.h3 variants={containerVariantsHeading}>
-        Waiting for you to activate&hellip;
+        That's it&hellip; Gated is set up and ready to start!
       </motion.h3>
 
       <Container variants={containerVariantsContent}>
@@ -39,7 +39,7 @@ export const OnboardingPageActivate = () => {
             mt={6}
             onClick={() => setProgress(100)}
           >
-            Activate Gated
+            Activate Your Account
           </Button>
         )}
       </Container>

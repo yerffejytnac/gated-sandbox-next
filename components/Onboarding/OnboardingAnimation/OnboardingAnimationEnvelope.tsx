@@ -11,7 +11,7 @@ export const OnboardingAnimationEnvelope = () => {
   const [animationData, setAnimationData] = useAtom(animationDataAtom);
 
   useEffect(() => {
-    import("./lottie-envelope-open.json").then(setAnimationData);
+    import("./lottie-envelope-next.json").then(setAnimationData);
 
     if (animationData) setProgress(2);
   }, []);
@@ -21,10 +21,16 @@ export const OnboardingAnimationEnvelope = () => {
       <Lottie
         animationData={animationData}
         play
-        speed={0.5}
+        speed={1}
+        // segments={[0, 45]}
         loop={false}
         onComplete={() => setProgress(8)}
-        style={{ width: "100%", maxWidth: "240px", height: "auto" }}
+        style={{
+          width: "100%",
+          maxWidth: "320px",
+          height: "auto",
+          marginTop: "-100px",
+        }}
       />
     )
   );
