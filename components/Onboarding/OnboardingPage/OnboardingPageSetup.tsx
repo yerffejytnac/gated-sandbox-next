@@ -12,7 +12,7 @@ import { progressAtom } from "../Onboarding";
 import {
   OnboardingAnimationAllowedSenders,
   OnboardingAnimationEnvelope,
-  OnboardingAnimationInboxTraining,
+  OnboardingAnimationGatedSidebar,
 } from "../OnboardingAnimation";
 
 export const OnboardingPageSetup = () => {
@@ -55,8 +55,7 @@ export const OnboardingPageSetup = () => {
             variants={containerVariantsContent}
             transition={{ type: "spring", bounce: 0.25, duration: 0.75 }}
           >
-            <h3>TODO: Swap with GatedSidebar Animation</h3>
-            <OnboardingAnimationInboxTraining />
+            <OnboardingAnimationGatedSidebar />
           </Container>
         </Root>
       )}
