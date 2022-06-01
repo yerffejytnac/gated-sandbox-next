@@ -2,7 +2,13 @@ import { motion, Variants } from "framer-motion";
 import styled from "@emotion/styled";
 
 export const rootVariants: Variants = {
-  out: { opacity: 0 },
+  out: {
+    opacity: 0,
+    transition: {
+      when: "afterChildren",
+      duration: 0.75,
+    },
+  },
   in: {
     opacity: 1,
     transition: {
@@ -32,13 +38,15 @@ export const Root = styled(motion.div)`
 `;
 
 export const containerVariantsHeading: Variants = {
-  out: { opacity: 0, y: 20 },
   in: { opacity: 1, y: 0 },
+  out: { opacity: 0, y: 20 },
+  exit: { opacity: 0, y: 20 },
 };
 
 export const containerVariantsContent: Variants = {
-  out: { opacity: 0, scale: 0.5 },
   in: { opacity: 1, scale: 1 },
+  out: { opacity: 0, scale: 0.5 },
+  exit: { opacity: 0, scale: 0.5 },
 };
 
 export const Container = styled(motion.div)`

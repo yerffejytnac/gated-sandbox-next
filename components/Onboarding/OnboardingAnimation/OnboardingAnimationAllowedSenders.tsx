@@ -8,8 +8,14 @@ import { progressAtom } from "../Onboarding";
 
 const Root = styled(motion.div)`
   position: relative;
-  width: auto;
+  width: 100%;
   height: 220px;
+`;
+
+const Container = styled.div`
+  width: auto;
+  height: auto;
+
   background-color: #f7f7f7;
   overflow: hidden;
 
@@ -18,12 +24,9 @@ const Root = styled(motion.div)`
   mask-size: contain;
 `;
 
-const Container = styled.div`
-  width: 100%;
-`;
-
 const List = styled(motion.div)`
-  padding: 0 2rem;
+  padding: 2rem 1.5rem;
+  width: 100%;
 `;
 
 const listVariants: Variants = {
@@ -99,8 +102,8 @@ export const OnboardingAnimationAllowedSenders = () => {
           variants={listVariants}
           initial="hidden"
           animate="visible"
-          // onAnimationStart={() => setProgress(9)}
-          // onAnimationComplete={() => setProgress(16)}
+          onAnimationStart={() => setProgress(9)}
+          onAnimationComplete={() => setProgress(16)}
         >
           <AnimatePresence>
             {MOCK.map((i, idx) => (

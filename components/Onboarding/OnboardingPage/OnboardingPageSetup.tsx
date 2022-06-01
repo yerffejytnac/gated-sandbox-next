@@ -25,29 +25,29 @@ export const OnboardingPageSetup = () => {
     <>
       {showA && (
         <Root variants={rootVariants} initial="out" animate="in" exit="out">
-          <motion.h3 variants={containerVariantsHeading}>
-            We’ve connected to your email account&hellip;
+          <motion.h3 variants={containerVariantsHeading} exit="exit">
+            We've connected to your email account&hellip;
           </motion.h3>
 
-          <Container variants={containerVariantsHeading}>
+          <Container variants={containerVariantsHeading} exit="exit">
             <OnboardingAnimationEnvelope />
           </Container>
         </Root>
       )}
       {showB && (
         <Root variants={rootVariants} initial="out" animate="in" exit="out">
-          <motion.h3 variants={containerVariantsHeading}>
+          <motion.h3 variants={containerVariantsHeading} exit="exit">
             Taking a look to see whose messages should never be Gated&hellip;
           </motion.h3>
 
-          <Container variants={containerVariantsHeading}>
+          <Container variants={containerVariantsHeading} exit="exit">
             <OnboardingAnimationAllowedSenders />
           </Container>
         </Root>
       )}
       {showC && (
         <Root variants={rootVariants} initial="out" animate="in" exit="out">
-          <motion.h3 variants={containerVariantsHeading}>
+          <motion.h3 variants={containerVariantsHeading} exit="exit">
             Creating a folder where Gated messages go&hellip;
           </motion.h3>
 
