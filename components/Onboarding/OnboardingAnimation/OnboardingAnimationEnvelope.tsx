@@ -11,7 +11,7 @@ export const OnboardingAnimationEnvelope = () => {
   const [animationData, setAnimationData] = useAtom(animationDataAtom);
 
   useEffect(() => {
-    import("./lottie-envelope-next.json").then(setAnimationData);
+    import("./lottie-envelope-open.json").then(setAnimationData);
 
     if (animationData) setProgress(2);
   }, []);

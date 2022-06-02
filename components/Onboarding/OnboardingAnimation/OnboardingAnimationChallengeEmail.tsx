@@ -1,3 +1,5 @@
+// TODO: Pardon the mess, this was re-written from a Lottie animation and needs cleanup and organization...
+
 import styled from "@emotion/styled";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAtom } from "jotai";
@@ -67,33 +69,29 @@ const Email = styled(motion.div)`
   border-radius: 16px;
 `;
 
+// TODO: Use `QueryNonprofitDefault` for nonprofit information... Check w/ Allen...
 const MOCK_ME_QUERY = {
   id: "15ba930c-9c5f-4be4-9810-d2283c5b5d7f",
   connections: [
     {
       id: "6fd01696-a120-4cbe-85e9-8c204aed87b0",
-      emailAddress: "gated.jeffrey.dev@gmail.com",
+      emailAddress: "john.smith@gmail.com",
       provider: "Google",
       status: "Running",
       isActivated: false,
     },
   ],
-  firstName: "Jeffrey",
-  lastName: "Canty",
-  fullName: "Jeffrey Canty",
-  avatar:
-    "https://lh3.googleusercontent.com/a/AATXAJxeXtT14kYHni4JN74RhIh1DQ0GnQ9ZH-26Y5HF=s96-c",
+  firstName: "John",
+  lastName: "Smith",
+  fullName: "John Smith",
+  avatar: "https://joeschmoe.io/api/v1/male/random",
   isSignupCompleted: false,
   challengeSettings: {
-    signature: "Jeffrey",
+    signature: "John",
     minimumDonation: 200,
     nonprofit: {
-      id: "0199632b-b38a-4961-b7a4-ee8b1d485323",
-      name: "World Central Kitchen",
-      category: {
-        id: "c9752bbd-f233-4b2c-96e9-0d72d87d6ca2",
-        name: "Health",
-      },
+      id: "5455a225-550c-4e64-b89a-fb9de4efda20",
+      name: "Doctors without Borders",
     },
   },
 };
@@ -101,14 +99,7 @@ const MOCK_ME_QUERY = {
 const EmailPreview = () => {
   const [progress, setProgress] = useAtom(progressAtom);
   const user: any = MOCK_ME_QUERY;
-  const {
-    firstName,
-    lastName,
-    fullName,
-    avatar,
-    challengeSettings,
-    connections,
-  } = user;
+  const { fullName, avatar, challengeSettings, connections } = user;
   const connection = connections[0] ?? null;
   const { emailAddress } = connection;
   const { signature, minimumDonation, nonprofit } = challengeSettings;
@@ -185,6 +176,7 @@ const EmailPreview = () => {
   );
 };
 
+// TODO: Need to clean up design assets in Figma...
 // const Background = () => (
 //   <svg viewBox="0 0 400 201">
 //     <g clipPath="url(#a)">
